@@ -1,0 +1,4 @@
+#cloud-config 
+runcmd:
+  - yum install -y iscsi-initiator-utils nfs-utils cloud-utils-growpart gdisk
+  - reboot now
