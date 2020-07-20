@@ -44,19 +44,32 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 ```
 
 And then apply our BGP configuration:
-`kubectl apply -f k3s/metallb-config.yml`
+
+``` sh
+kubectl apply -f k3s/metallb-config.yml`
+```
+
 
 #### Install Longhorn
 Longhorn is a distributed storage backend for Kubernetes that provides tools to make persistent storage easy while avoiding the locking pitfalls of NFS. 
 
 Install Longhorn
-`kubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml`
+``` sh
+kubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml
+```
+
 
 Patch Longhorn to use a LoadBalancer
-`kubectl -n longhorn-system patch svc longhorn-frontend --patch "$(cat k3s/longhorn-service-patch.yaml)"`
+``` sh
+kubectl -n longhorn-system patch svc longhorn-frontend --patch "$(cat k3s/longhorn-service-patch.yaml)"
+```
+
 
 Patch the Longhorn StorageClass to use 2 replicas, as we only have 3 hosts.
-`kc replace -f k3s/longhorn-sc-patch.yaml --force`
+``` sh
+kc replace -f k3s/longhorn-sc-patch.yaml --force
+```
+
 
 ### Done!
 Once the above steps are complete you are ready to begin deploying apps to this cluster using `kubectl`. The apps will be added to this repo in the future, but expect to see:
