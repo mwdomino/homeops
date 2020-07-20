@@ -1,0 +1,5 @@
+terraform.tfvars
+terraform.tfstate*
+.terraform/*
+variables.pkr.hcl
+variables.json
