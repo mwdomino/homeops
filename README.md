@@ -18,6 +18,13 @@ The Ansible playbook is a modification of https://github.com/rancher/k3s-ansible
 
 Once Ansible has provisioned your cluster, copy the `~/.kube/config` file to your local box for the `kubectl` commands to follow. This can be done with SCP as `scp root@172.16.200.10:~/.kube/config ~/.kube/config`
 
+#### Update Traefik config
+Copy the updated traefik config to the master node
+
+``` sh
+scp k3s/traefik.yaml root@172.16.200.10:/var/lib/rancher/k3s/server/manifests/traefik-customized.yaml
+```
+
 #### Configure MetalLB
 MetalLB peers BGP with an EdgeRouter Lite to advertise `LoadBalancer` type IPs from Kubernetes services. You'll need to configure both the router and the cluster to accept this peering. The EdgeRouter will use BGP ASN 64513 and the MetalLB speakers will use ASN 64514
 
