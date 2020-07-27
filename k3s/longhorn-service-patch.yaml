@@ -1,6 +1,0 @@
-spec:
-  type: LoadBalancer
-status:
-  loadBalancer:
-    ingress:
-      - ip: 17.17.10.5
