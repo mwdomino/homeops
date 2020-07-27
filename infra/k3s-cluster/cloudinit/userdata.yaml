@@ -1,4 +1,6 @@
 #cloud-config 
 runcmd:
-  - yum install -y iscsi-initiator-utils nfs-utils cloud-utils-growpart gdisk
+  - yum install -y epel-release https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
+  - yum install -y yum-plugin-elrepo
+  - yum install -y iscsi-initiator-utils nfs-utils cloud-utils-growpart gdisk kmod-wireguard wireguard-tools
   - reboot now
