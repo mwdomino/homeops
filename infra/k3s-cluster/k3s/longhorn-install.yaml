@@ -380,7 +380,8 @@ metadata:
   name: longhorn-frontend
   namespace: longhorn-system
 spec:
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerIP: 172.17.10.0
   selector:
     app: longhorn-ui
   ports:
