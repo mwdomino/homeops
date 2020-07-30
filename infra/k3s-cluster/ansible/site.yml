@@ -65,3 +65,8 @@
     k8s:
       state: present
       src: '../k3s/traefik.yaml'
+
+  - name: Add Minio secret
+    k8s:
+      state: present
+      src: '../k3s/minio-secret.yaml'
