@@ -1,0 +1,12 @@
+local-hostname: pihole
+instance-id: pihole
+network:
+  version: 2
+  ethernets:
+    ens192:
+      addresses:
+        - 192.168.1.7/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses:
+          - 192.168.1.1

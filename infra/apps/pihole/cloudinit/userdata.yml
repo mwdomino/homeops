@@ -1,0 +1,8 @@
+#cloud-config
+runcmd:
+  - curl -fsSL https://get.docker.io | sh
+  - systemctl enable docker
+  - systemctl start docker
+  - mkdir -p /root/pihole/config
+  - mkdir -p /root/pihole/dnsmasq
+  - docker run -d --restart=unless-stopped --name=pihole -p "53:53/tcp" -p "53:53/udp" -p "67:67/udp" -p "80:80/tcp" -p "443:443/tcp" -e TZ="America/New_York" -v /root/pihole/config/:/etc/pihole/ -v /root/pihole/dnsmasq/:/etc/dnsmasq.d/ --cap-add=NET_ADMIN pihole/pihole
