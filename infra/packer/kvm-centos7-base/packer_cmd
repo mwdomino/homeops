@@ -1,0 +1,1 @@
+sudo packer build -var $(tty) centos7-base.json

@@ -1,0 +1,54 @@
+{
+    "variables":
+    {
+      "serial": "",
+      "cpu": "2",
+      "ram": "2048",
+      "name": "centos",
+      "disk_size": "12000",
+      "version": "7",
+      "iso_checksum_type": "sha256",
+      "iso_urls": "http://packages.oit.ncsu.edu/centos/7.8.2003/isos/x86_64/CentOS-7-x86_64-Minimal-2003.iso",
+      "iso_checksum": "659691c28a0e672558b003d223f83938f254b39875ee7559d1a4a14c79173193",
+      "headless": "true",
+      "config_file": "ks.cfg",
+      "destination_server": "packages.oit.ncsu.edu"
+    },
+  "builders": [
+    {
+      "name": "{{user `name`}}{{user `version`}}",
+      "type": "qemu",
+      "format": "qcow2",
+      "accelerator": "kvm",
+      "qemu_binary": "/usr/bin/qemu-system-x86_64",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "disk_cache": "none",
+      "display": "sdl",
+      "qemuargs": [
+        [ "-m", "{{user `ram`}}M" ],
+        [ "-smp", "{{user `cpu`}}" ],
+        [ "-chardev", "tty,id=pts,path={{user `serial`}}"],
+        [ "-device", "isa-serial,chardev=pts"],
+        [ "-device", "virtio-net,netdev=user.0"]
+      ],
+      "ssh_wait_timeout": "30m",
+      "http_directory": ".",
+      "ssh_keypair_name": "matt-mbp",
+      "ssh_private_key_file": "/home/matt/.ssh/id_rsa",
+      "ssh_username": "root",
+      "iso_urls": "{{user `iso_urls`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "boot_wait": "10s",
+      "boot_command": [
+        "<up><wait><tab><wait> console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `config_file`}}<enter><wait>"
+      ],
+      "disk_size": "{{user `disk_size`}}",
+      "disk_discard": "unmap",
+      "disk_compression": true,
+      "headless": "{{user `headless`}}",
+      "shutdown_command": "sudo /usr/sbin/shutdown -h now",
+      "output_directory": "artifacts/qemu/{{user `name`}}{{user `version`}}"
+    }
+  ]
+}
